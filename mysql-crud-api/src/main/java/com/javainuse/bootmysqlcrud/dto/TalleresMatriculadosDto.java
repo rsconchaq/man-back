@@ -31,4 +31,8 @@ public class TalleresMatriculadosDto {
     private Date FechaInicio;
 
     private Date FechaFin;
+
+    private Integer flagTipo;
+
+    private Integer flagPago;
 }

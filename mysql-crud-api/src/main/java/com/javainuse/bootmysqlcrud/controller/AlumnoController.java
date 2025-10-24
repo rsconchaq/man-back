@@ -62,12 +62,14 @@ public class AlumnoController {
             for (ApoderadoDto apoderadoDto : alumno.getApoderados()) {
                 apoderadoDto.setIdAlumno(alumno.getIdAlumno());
                 Integer idApoderado = apoderadoDto.getIdApoderado();
+                Integer resultApoderado = null;
+                apoderadoDto.setIdAlumno(idAlumno);
                 if (idApoderado != null && idApoderado.intValue() > 0) {
-                    Integer integer = this.apoderadoService.editar(apoderadoDto, user);
+                    resultApoderado = this.apoderadoService.editar(apoderadoDto, user);
                 } else {
-                    Integer integer = this.apoderadoService.registrar(apoderadoDto, user);
+                    resultApoderado = this.apoderadoService.registrar(apoderadoDto, user);
                 }
-                if (idApoderado == null)
+                if (resultApoderado == null)
                     return ResponseEntity.status((HttpStatusCode) HttpStatus.BAD_REQUEST).body(new ResponseWrapper(null, "Error al registrar el apoderado"));
             }
         return ResponseEntity.status((HttpStatusCode) HttpStatus.CREATED).body(new ResponseWrapper(idAlumno, "alumno registrado con éxito"));

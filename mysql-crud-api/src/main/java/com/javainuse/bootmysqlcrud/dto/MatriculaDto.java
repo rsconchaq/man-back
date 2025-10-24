@@ -19,6 +19,7 @@ public class MatriculaDto {
     private Integer idApoderado;
 
     private Integer tipo;
+    private Integer pago;
 
     private Integer activo;
 }

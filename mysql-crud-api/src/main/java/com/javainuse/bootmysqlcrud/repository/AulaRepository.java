@@ -44,8 +44,8 @@ public class AulaRepository {
                 .registerStoredProcedureParameter("p_Descripcion", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdLocal", param.getLocal().getIdLocal());
-        query.setParameter("p_DescripcionAula", param.getDescripcionAula());
-        query.setParameter("p_Descripcion", param.getDescripcion());
+        query.setParameter("p_DescripcionAula", param.getDescripcionAula() == null ? "" : param.getDescripcionAula().toUpperCase());
+        query.setParameter("p_Descripcion", param.getDescripcion() == null ? "" : param.getDescripcion().toUpperCase());
         try {
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
@@ -65,8 +65,8 @@ public class AulaRepository {
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdAula", param.getIdAula());
         query.setParameter("p_IdLocal", param.getLocal().getIdLocal());
-        query.setParameter("p_DescripcionAula", param.getDescripcionAula());
-        query.setParameter("p_Descripcion", param.getDescripcion());
+        query.setParameter("p_DescripcionAula", param.getDescripcionAula() == null ? "" : param.getDescripcionAula().toUpperCase());
+        query.setParameter("p_Descripcion", param.getDescripcion() == null ? "" : param.getDescripcion().toUpperCase());
         query.setParameter("p_Activo", param.getActivo());
         try {
             query.execute();

@@ -66,19 +66,19 @@ public class AlumnoRepository {
                 .registerStoredProcedureParameter("p_Diagnostico", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Comentario", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? param.getNombres() : param.getNombres().toUpperCase());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? param.getApellidos() : param.getApellidos().toUpperCase());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_FechaNacimiento", param.getFechaNacimiento());
         query.setParameter("p_Sexo", param.getSexo());
-        query.setParameter("p_Ciudad", param.getCiudad());
-        query.setParameter("p_Direccion", param.getDireccion());
+        query.setParameter("p_Ciudad", param.getCiudad() == null ? param.getCiudad() : param.getCiudad().toUpperCase());
+        query.setParameter("p_Direccion", param.getDireccion() == null ? param.getDireccion() : param.getDireccion().toUpperCase());
         query.setParameter("p_Telefono", param.getTelefono());
         query.setParameter("p_Email", param.getEmail());
         query.setParameter("p_Edad", param.getEdad());
         query.setParameter("p_User", user);
         query.setParameter("p_Diagnostico", param.getDiagnostico());
-        query.setParameter("p_Comentario", param.getObservaciones());
+        query.setParameter("p_Comentario", param.getObservaciones() == null ? param.getObservaciones() : param.getObservaciones().toUpperCase());
         try {
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
@@ -109,20 +109,20 @@ public class AlumnoRepository {
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdAlumno", param.getIdAlumno());
         query.setParameter("p_Codigo", param.getCodigo());
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? param.getNombres() : param.getNombres().toUpperCase());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? param.getApellidos() : param.getApellidos().toUpperCase());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_FechaNacimiento", param.getFechaNacimiento());
         query.setParameter("p_Sexo", param.getSexo());
-        query.setParameter("p_Ciudad", param.getCiudad());
-        query.setParameter("p_Direccion", param.getDireccion());
+        query.setParameter("p_Ciudad", param.getCiudad() == null ? param.getCiudad() : param.getCiudad().toUpperCase());
+        query.setParameter("p_Direccion", param.getDireccion() == null ? param.getDireccion() : param.getDireccion().toUpperCase());
         query.setParameter("p_Activo", param.getActivo());
         query.setParameter("p_Telefono", param.getTelefono());
         query.setParameter("p_Email", param.getEmail());
         query.setParameter("p_Edad", param.getEdad());
         query.setParameter("p_User", user);
         query.setParameter("p_Diagnostico", param.getDiagnostico());
-        query.setParameter("p_Comentario", param.getObservaciones());
+        query.setParameter("p_Comentario", param.getObservaciones() == null ? param.getObservaciones() : param.getObservaciones().toUpperCase());
         try {
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
@@ -170,6 +170,8 @@ public class AlumnoRepository {
                 lista.setDescripcion((obj[9] != null) ? (String)obj[9] : null);
                 lista.setFechaInicio((obj[10] != null) ? (Date)obj[10] : null);
                 lista.setFechaFin((obj[11] != null) ? (Date)obj[11] : null);
+                lista.setFlagTipo((obj[12] != null) ? Integer.valueOf(((Number)obj[12]).intValue()) : null);
+                lista.setFlagPago((obj[13] != null) ? Integer.valueOf(((Number)obj[13]).intValue()) : null);
                 return lista;
             }).collect(Collectors.toList());
             return listaTalleresMatriculados;

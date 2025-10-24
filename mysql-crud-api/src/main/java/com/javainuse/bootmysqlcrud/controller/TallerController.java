@@ -105,9 +105,9 @@ public class TallerController {
         return ResponseEntity.status((HttpStatusCode)HttpStatus.CREATED).body(new ResponseWrapper(idAperturaTaller, "Matricula registrado con éxito"));
     }
 
-    @GetMapping({"/listarCalendarioTaller/{anio}/{mes}"})
-    public ResponseEntity<ResponseWrapper> listarCalendarioTaller(@PathVariable Integer anio, @PathVariable String mes) {
-        List<?> listaCalendarioTaller = this.tallerService.listarCalendarioTaller(anio, mes);
+    @GetMapping({"/listarCalendarioTaller/{edad}/{idAlumno}/{flag}"})
+    public ResponseEntity<ResponseWrapper> listarCalendarioTaller(@PathVariable Integer edad, @PathVariable Integer idAlumno, @PathVariable String flag) {
+        List<?> listaCalendarioTaller = this.tallerService.listarCalendarioTaller(edad, idAlumno);
         return ResponseEntity.status((HttpStatusCode)HttpStatus.OK).body(new ResponseWrapper(listaCalendarioTaller, "Lista de Calendario de Talleres"));
     }
 }

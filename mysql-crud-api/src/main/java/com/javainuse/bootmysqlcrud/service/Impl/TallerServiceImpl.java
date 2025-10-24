@@ -52,7 +52,7 @@ public class TallerServiceImpl implements TallerService {
     public Integer registrarMatricula(MatriculaDto param) {
         return this.tallerRepository.registrarMatricula(param);
     }
-    public List<CalendarioTallerDto> listarCalendarioTaller(Integer anio, String mes) {
-        return this.tallerRepository.listarCalendarioTaller(anio, mes);
+    public List<CalendarioTallerDto> listarCalendarioTaller(Integer edad, Integer idAlumno) {
+        return this.tallerRepository.listarCalendarioTaller(edad, idAlumno);
     }
 }

@@ -44,8 +44,8 @@ public class EtapaRpository {
                 .registerStoredProcedureParameter("p_Descripcion", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdLocal", param.getLocal().getIdLocal());
-        query.setParameter("p_DescripcionEtapa", param.getDescripcionEtapa().toUpperCase());
-        query.setParameter("p_Descripcion", param.getDescripcion().toUpperCase());
+        query.setParameter("p_DescripcionEtapa",  param.getDescripcionEtapa() == null ? "" : param.getDescripcionEtapa().toUpperCase());
+        query.setParameter("p_Descripcion",  param.getDescripcion() == null ? "" :param.getDescripcion().toUpperCase());
         try {
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
@@ -65,8 +65,8 @@ public class EtapaRpository {
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdEtapa", param.getIdEtapa());
         query.setParameter("p_IdLocal", param.getLocal().getIdLocal());
-        query.setParameter("p_DescripcionEtapa", param.getDescripcionEtapa().toUpperCase());
-        query.setParameter("p_Descripcion", param.getDescripcion().toUpperCase());
+        query.setParameter("p_DescripcionEtapa", param.getDescripcionEtapa() == null ? "" : param.getDescripcionEtapa().toUpperCase());
+        query.setParameter("p_Descripcion", param.getDescripcion() == null ? "" : param.getDescripcion().toUpperCase());
         query.setParameter("p_Activo", param.getActivo());
         try {
             query.execute();

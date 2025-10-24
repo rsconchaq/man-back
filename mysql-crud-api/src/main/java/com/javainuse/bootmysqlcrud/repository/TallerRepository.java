@@ -129,7 +129,8 @@ public class TallerRepository {
             query.registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
             query.setParameter("p_Lista", jsonLista);
             query.execute();
-            return (Integer)query.getOutputParameterValue("p_Resultado");
+            Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
+            return  result;
         } catch (Exception e) {
             throw new RuntimeException("Error al ejecutar usp_AsignarCursos", e);
         }
@@ -187,12 +188,14 @@ public class TallerRepository {
             query.registerStoredProcedureParameter("p_idAperturaTaller", Integer.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("p_idApoderado", Integer.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("p_tipo", Integer.class, ParameterMode.IN);
+            query.registerStoredProcedureParameter("p_pago", String.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("p_situacion", String.class, ParameterMode.IN);
             query.registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
             query.setParameter("p_idAlumno", param.getIdAlumno());
             query.setParameter("p_idAperturaTaller", param.getIdAperturaTaller());
             query.setParameter("p_idApoderado", param.getIdApoderado());
             query.setParameter("p_tipo", param.getTipo());
+            query.setParameter("p_pago", param.getPago());
             query.setParameter("p_situacion", param.getSituacion());
             query.execute();
             return (Integer)query.getOutputParameterValue("p_Resultado");
@@ -202,10 +205,12 @@ public class TallerRepository {
     }
 
 
-    public List<CalendarioTallerDto> listarCalendarioTaller(Integer anio, String mes) {
+    public List<CalendarioTallerDto> listarCalendarioTaller(Integer edad, Integer idAlumno) {
         StoredProcedureQuery query = this.entityManager.createStoredProcedureQuery("usp_ObtenerCalendarioTalleresJson");
-        //query.registerStoredProcedureParameter("p_idAlumno", Integer.class, ParameterMode.IN);
-        //query.setParameter("p_idAlumno", idAlumno);
+        query.registerStoredProcedureParameter("p_edad", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("p_idAlumno", Integer.class, ParameterMode.IN);
+        query.setParameter("p_edad", edad);
+        query.setParameter("p_idAlumno", idAlumno);
         List<CalendarioTallerDto> result = query.getResultList();
         if (result == null)
             return List.of();

@@ -53,8 +53,8 @@ public class ApoderadoRepository {
                 .registerStoredProcedureParameter("p_tipoRelacion", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_IdAlumno", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? "" : param.getNombres());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? "" : param.getApellidos());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_Telefono1", param.getTelefono1());
         query.setParameter("p_Telefono2", param.getTelefono2());
@@ -88,8 +88,8 @@ public class ApoderadoRepository {
                 .registerStoredProcedureParameter("p_IdAlumno", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdApoderado", param.getIdApoderado());
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? "" : param.getNombres());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? "" : param.getApellidos());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_Activo", param.getActivo());
         query.setParameter("p_Telefono1", param.getTelefono1());

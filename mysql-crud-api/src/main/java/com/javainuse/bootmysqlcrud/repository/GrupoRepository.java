@@ -23,7 +23,9 @@ public class GrupoRepository {
                 rol.setIdGrupo((obj[0] != null) ? Integer.valueOf(((Integer)obj[0]).intValue()) : null);
                 rol.setDescripcionGrupo((String)obj[1]);
                 rol.setDescripcion((String)obj[2]);
-                rol.setActivo((obj[3] != null) ? Integer.valueOf(((Boolean)obj[3]).booleanValue() ? 1 : 0) : null);
+                rol.setEdad1((obj[3] != null) ? Integer.valueOf(((Integer)obj[3]).intValue()) : null);
+                rol.setEdad2((obj[4] != null) ? Integer.valueOf(((Integer)obj[4]).intValue()) : null);
+                rol.setActivo((obj[5] != null) ? Integer.valueOf(((Boolean)obj[5]).booleanValue() ? 1 : 0) : null);
                 return rol;
             }).collect(Collectors.toList());
             return talleres;

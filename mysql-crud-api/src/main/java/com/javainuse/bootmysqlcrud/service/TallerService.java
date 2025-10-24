@@ -24,5 +24,5 @@ public interface TallerService {
     List<AperturaTallerDto> listarAperturaTaller();
 
     Integer registrarMatricula(MatriculaDto paramMatriculaDto);
-    List<CalendarioTallerDto> listarCalendarioTaller(Integer anio, String mes);
+    List<CalendarioTallerDto> listarCalendarioTaller(Integer edad, Integer idAlumno);
 }
