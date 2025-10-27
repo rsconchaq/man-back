@@ -220,4 +220,51 @@ public class TallerRepository {
             throw new RuntimeException("Error al convertir JSON a usp_ObtenerCalendarioTalleresJson", e);
         }
     }
+
+    public List<TallerDocenteDto> listarTalleresConDocente(Integer idDocente) {
+        StoredProcedureQuery query = this.entityManager.createStoredProcedureQuery("usp_ObtenerTalleresConDocente");
+        query.registerStoredProcedureParameter("p_idDocente", Integer.class, ParameterMode.IN);
+        query.setParameter("p_idDocente", idDocente);
+        try {
+
+        List<Object[]> results = query.getResultList();
+        List<TallerDocenteDto> talleres = (List<TallerDocenteDto>)results.stream().map(obj -> {
+            TallerDocenteDto tallerDetalle = new TallerDocenteDto();
+            tallerDetalle.setIdAperturaTaller((obj[0] != null) ? Integer.valueOf(((Integer) obj[0]).intValue()) : null);
+            tallerDetalle.setNombreTaller((obj[1] != null) ? String.valueOf(obj[1]) : null);
+            tallerDetalle.setIdDocente((obj[2] != null) ? Integer.valueOf(((Integer) obj[2]).intValue()) : null);
+            tallerDetalle.setCodigoDocente((obj[3] != null) ? String.valueOf(obj[3]) : null);
+            tallerDetalle.setNombreDocente((obj[4] != null) ? String.valueOf(obj[4]) : null);
+            tallerDetalle.setDescripcionEtapa((obj[5] != null) ? String.valueOf(obj[5]) : null);
+            tallerDetalle.setDescripcionGrupo((obj[6] != null) ? String.valueOf(obj[6]) : null);
+            tallerDetalle.setDescripcionTaller((obj[7] != null) ? String.valueOf(obj[7]) : null);
+
+             return tallerDetalle;
+        }).collect(Collectors.toList());
+        return talleres;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al ejecutar usp_ObtenerTalleresConDocente", e);
+        }
+    }
+
+    public Integer asignarDocenteTaller(TallerDocenteDto param) {
+        StoredProcedureQuery query = this.entityManager.createStoredProcedureQuery("usp_ActualizarDocenteTaller");
+        query.registerStoredProcedureParameter("p_idDocente", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("p_idAperturaTaller", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
+        query.setParameter("p_idDocente", param.getIdDocente());
+        query.setParameter("p_idAperturaTaller", param.getIdAperturaTaller());
+
+
+        try {
+            query.execute();
+            return (Integer)query.getOutputParameterValue("p_Resultado");
+        } catch (Exception e) {
+            throw new RuntimeException("Error al convertir JSON a usp_ActualizarDocenteTaller", e);
+        }
+    }
+
+
+
+
 }

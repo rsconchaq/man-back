@@ -56,15 +56,15 @@ public class DocenteRepository {
                 .registerStoredProcedureParameter("p_NumeroTelefono", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_User", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? "" : param.getNombres().toUpperCase());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? "" : param.getApellidos().toUpperCase());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_FechaNacimiento", param.getFechaNacimiento());
-        query.setParameter("p_Sexo", param.getSexo());
-        query.setParameter("p_Ciudad", param.getCiudad());
-        query.setParameter("p_Direccion", param.getDireccion());
-        query.setParameter("p_GradoEstudio", param.getGradoEstudio());
-        query.setParameter("p_Email", param.getEmail());
+        query.setParameter("p_Sexo", param.getSexo() == null ? "" : param.getSexo().toUpperCase());
+        query.setParameter("p_Ciudad", param.getCiudad() == null ? "" : param.getCiudad().toUpperCase());
+        query.setParameter("p_Direccion", param.getDireccion() == null ? "" : param.getDireccion().toUpperCase());
+        query.setParameter("p_GradoEstudio", param.getGradoEstudio() == null ? "" : param.getGradoEstudio().toUpperCase());
+        query.setParameter("p_Email", param.getEmail() == null ? "" : param.getEmail().toUpperCase());
         query.setParameter("p_NumeroTelefono", param.getNumeroTelefono());
         query.setParameter("p_User", user);
         try {
@@ -92,15 +92,15 @@ public class DocenteRepository {
                 .registerStoredProcedureParameter("p_Activo", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_Resultado", Integer.class, ParameterMode.OUT);
         query.setParameter("p_IdDocente", param.getIdDocente());
-        query.setParameter("p_Nombres", param.getNombres());
-        query.setParameter("p_Apellidos", param.getApellidos());
+        query.setParameter("p_Nombres", param.getNombres() == null ? "" : param.getNombres().toUpperCase());
+        query.setParameter("p_Apellidos", param.getApellidos() == null ? "" : param.getApellidos().toUpperCase());
         query.setParameter("p_DocumentoIdentidad", param.getDocumentoIdentidad());
         query.setParameter("p_FechaNacimiento", param.getFechaNacimiento());
-        query.setParameter("p_Sexo", param.getSexo());
-        query.setParameter("p_GradoEstudio", param.getGradoEstudio());
-        query.setParameter("p_Ciudad", param.getCiudad());
-        query.setParameter("p_Direccion", param.getDireccion());
-        query.setParameter("p_Email", param.getEmail());
+        query.setParameter("p_Sexo", param.getSexo() == null ? "" : param.getSexo().toUpperCase());
+        query.setParameter("p_GradoEstudio", param.getGradoEstudio() == null ? "" : param.getGradoEstudio().toUpperCase());
+        query.setParameter("p_Ciudad", param.getCiudad() == null ? "" : param.getCiudad().toUpperCase());
+        query.setParameter("p_Direccion", param.getDireccion() == null ? "" : param.getDireccion().toUpperCase());
+        query.setParameter("p_Email", param.getEmail() == null ? "" : param.getEmail().toUpperCase());
         query.setParameter("p_NumeroTelefono", param.getNumeroTelefono());
         query.setParameter("p_Activo", param.getActivo());
         try {

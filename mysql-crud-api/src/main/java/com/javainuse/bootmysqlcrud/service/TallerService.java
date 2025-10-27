@@ -25,4 +25,6 @@ public interface TallerService {
 
     Integer registrarMatricula(MatriculaDto paramMatriculaDto);
     List<CalendarioTallerDto> listarCalendarioTaller(Integer edad, Integer idAlumno);
+    List<TallerDocenteDto> listarTalleresConDocente(Integer idDocente);
+    Integer asignarDocenteTaller(TallerDocenteDto param);
 }

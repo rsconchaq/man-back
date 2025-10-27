@@ -12,6 +12,7 @@ import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -272,8 +273,9 @@ public class AlumnoRepository {
                 lista.setIdCuota(((obj[0] != null) ? Integer.valueOf(((Number)obj[0]).intValue()) : null).intValue());
                 lista.setNumeroCuota(((obj[1] != null) ? Integer.valueOf(((Number)obj[1]).intValue()) : null).intValue());
                 lista.setMonto((obj[2] != null) ? (BigDecimal)obj[2] : null);
-                lista.setFechaVencimiento((obj[3] != null) ? (Date)obj[3] : null);
-                lista.setFechaPago((obj[4] != null) ? (Date)obj[4] : null);
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                lista.setFechaVencimiento((obj[3] != null) ? sdf.format((Date)obj[3]) : null);
+                lista.setFechaPago((obj[4] != null) ? sdf.format((Date)obj[4]) : null);
                 lista.setEstadoPago((obj[5] != null) ? (String)obj[5] : null);
                 lista.setObservacion((obj[6] != null) ? (String)obj[6] : null);
                 lista.setIdMatricula(((obj[7] != null) ? Integer.valueOf(((Number)obj[7]).intValue()) : null).intValue());
@@ -310,10 +312,14 @@ public class AlumnoRepository {
         query.setParameter("p_observacion", param.getObservacion());
         query.setParameter("p_estadoPago", param.getEstadoPago());
         query.setParameter("p_monto", param.getMonto());
-        Date fecha = param.getFechaVencimiento();
-        Timestamp fechaTimestamp = (fecha != null) ? new Timestamp(fecha.getTime()) : null;
-        query.setParameter("p_fechaVencimiento", fechaTimestamp);
+
+
         try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = param.getFechaVencimiento() == "" ? new Date() : dateFormat.parse(param.getFechaVencimiento());
+            Timestamp fechaTimestamp = (fecha != null) ? new Timestamp(fecha.getTime()) : null;
+            query.setParameter("p_fechaVencimiento", fechaTimestamp);
+
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
             return result;
@@ -327,6 +333,7 @@ public class AlumnoRepository {
         query.registerStoredProcedureParameter("p_flag", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_idCuota", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_numeroCuota", Integer.class, ParameterMode.IN)
+                .registerStoredProcedureParameter("p_nroDivision", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_idMatricula", Integer.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_observacion", String.class, ParameterMode.IN)
                 .registerStoredProcedureParameter("p_estadoPago", String.class, ParameterMode.IN)
@@ -339,17 +346,22 @@ public class AlumnoRepository {
         query.setParameter("p_flag", Integer.valueOf(param.getFlag()));
         query.setParameter("p_idCuota", Integer.valueOf(param.getIdCuota()));
         query.setParameter("p_numeroCuota", Integer.valueOf(param.getNumeroCuota()));
+        query.setParameter("p_nroDivision", Integer.valueOf(param.getNroDivision()));
         query.setParameter("p_idMatricula", Integer.valueOf(param.getIdMatricula()));
         query.setParameter("p_observacion", param.getObservacion());
         query.setParameter("p_estadoPago", param.getEstadoPago());
         query.setParameter("p_monto", param.getMonto());
-        Date fecha = param.getFechaVencimiento();
-        Timestamp fechaTimestamp = (fecha != null) ? new Timestamp(fecha.getTime()) : null;
-        query.setParameter("p_fechaVencimiento", fechaTimestamp);
-        query.setParameter("p_seleccionadoPagar", param.getSeleccionadoPagar());
-        query.setParameter("p_seleccionarBoleta", param.getSeleccionadoBoleta());
-        query.setParameter("p_tipoPago", Integer.valueOf(param.getTipoPago()));
+
+
         try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+            Date fecha = param.getFechaVencimiento() == "" ? new Date() : dateFormat.parse(param.getFechaVencimiento());
+            Timestamp fechaTimestamp = (fecha != null) ? new Timestamp(fecha.getTime()) : null;
+            query.setParameter("p_fechaVencimiento", fechaTimestamp);
+            query.setParameter("p_seleccionadoPagar", param.getSeleccionadoPagar());
+            query.setParameter("p_seleccionarBoleta", param.getSeleccionadoBoleta());
+            query.setParameter("p_tipoPago", Integer.valueOf(param.getTipoPago()));
+
             query.execute();
             Integer result = (Integer)query.getOutputParameterValue("p_Resultado");
             return result;

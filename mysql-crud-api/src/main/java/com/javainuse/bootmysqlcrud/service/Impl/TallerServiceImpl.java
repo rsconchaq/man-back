@@ -55,4 +55,12 @@ public class TallerServiceImpl implements TallerService {
     public List<CalendarioTallerDto> listarCalendarioTaller(Integer edad, Integer idAlumno) {
         return this.tallerRepository.listarCalendarioTaller(edad, idAlumno);
     }
+
+    public List<TallerDocenteDto> listarTalleresConDocente(Integer idDocente){
+        return this.tallerRepository.listarTalleresConDocente(idDocente);
+    }
+
+    public Integer asignarDocenteTaller(TallerDocenteDto param){
+        return this.tallerRepository.asignarDocenteTaller(param);
+    }
 }

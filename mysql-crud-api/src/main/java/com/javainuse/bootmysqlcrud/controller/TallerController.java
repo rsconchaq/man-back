@@ -2,6 +2,7 @@ package com.javainuse.bootmysqlcrud.controller;
 
 import com.javainuse.bootmysqlcrud.dto.AperturaTallerDto;
 import com.javainuse.bootmysqlcrud.dto.MatriculaDto;
+import com.javainuse.bootmysqlcrud.dto.TallerDocenteDto;
 import com.javainuse.bootmysqlcrud.dto.TallerDto;
 import com.javainuse.bootmysqlcrud.service.TallerService;
 import com.javainuse.bootmysqlcrud.wrapper.ResponseWrapper;
@@ -109,5 +110,19 @@ public class TallerController {
     public ResponseEntity<ResponseWrapper> listarCalendarioTaller(@PathVariable Integer edad, @PathVariable Integer idAlumno, @PathVariable String flag) {
         List<?> listaCalendarioTaller = this.tallerService.listarCalendarioTaller(edad, idAlumno);
         return ResponseEntity.status((HttpStatusCode)HttpStatus.OK).body(new ResponseWrapper(listaCalendarioTaller, "Lista de Calendario de Talleres"));
+    }
+
+    @GetMapping({"/listarTalleresConDocente/{idDocente}"})
+    public ResponseEntity<ResponseWrapper> listarTalleresConDocente(@PathVariable Integer idDocente) {
+        List<TallerDocenteDto> listaTalleresConDocente = this.tallerService.listarTalleresConDocente(idDocente);
+        return ResponseEntity.status((HttpStatusCode)HttpStatus.OK).body(new ResponseWrapper(listaTalleresConDocente, "Lista de Talleres con Docente"));
+    }
+
+    @PostMapping({"/asignarDocenteTaller"})
+    public ResponseEntity<ResponseWrapper> asignarDocenteTaller(@RequestBody TallerDocenteDto param) {
+        Integer idTallerDetalle = this.tallerService.asignarDocenteTaller(param);
+        if (idTallerDetalle == null)
+            return ResponseEntity.status((HttpStatusCode)HttpStatus.BAD_REQUEST).body(new ResponseWrapper(null, "Error al registrar el taller detalle"));
+        return ResponseEntity.status((HttpStatusCode)HttpStatus.CREATED).body(new ResponseWrapper(idTallerDetalle, "Taller detalle registrado con éxito"));
     }
 }

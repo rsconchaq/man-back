@@ -12,9 +12,10 @@ public class CuotaMatriculaDto {
     private int flag;
     private int idCuota;
     private int numeroCuota;
+    private int nroDivision;
     private BigDecimal monto;
-    private Date fechaVencimiento;
-    private Date fechaPago;
+    private String fechaVencimiento;
+    private String fechaPago;
     private String estadoPago;
     private String observacion;
     private int idMatricula;
