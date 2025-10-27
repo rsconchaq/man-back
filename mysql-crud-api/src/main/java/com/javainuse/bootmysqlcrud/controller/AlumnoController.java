@@ -37,6 +37,11 @@ public class AlumnoController {
     @GetMapping({"/listar"})
     public ResponseEntity<ResponseWrapper> lista() {
         List<AlumnoDto> listaAlumno = this.alumnoService.listar();
+        // En cada alumno, cargar sus apoderados
+        for (AlumnoDto alumno : listaAlumno) {
+            List<ApoderadoDto> listaApoderado = this.apoderadoService.listar(alumno.getIdAlumno());
+            alumno.setApoderados(listaApoderado);
+        }
         return ResponseEntity.status((HttpStatusCode) HttpStatus.OK).body(new ResponseWrapper(listaAlumno, "Lista de Alumnos"));
     }
 
