@@ -26,4 +26,5 @@ public interface AlumnoService {
 
     Integer registrarCuotaMatricula(CuotaMatriculaDto paramCuotaMatriculaDto, String paramString);
     Integer registrarCuotaDetMatricula(CuotaMatriculaDto paramCuotaMatriculaDto, String paramString);
+    List<SeguimientoSesionDto> ListarAlumnosDetallexSession(Integer idAperturaTallerDet, Integer idSesion);
 }

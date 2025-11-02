@@ -369,4 +369,48 @@ public class AlumnoRepository {
             throw new RuntimeException("Error al ejecutar usp_RegistrarCuotaDetMatriculaAlumno", e);
         }
     }
+
+    public List<SeguimientoSesionDto> ListarAlumnosDetallexSession(Integer idAperturaTallerDet, Integer idSesion) {
+        StoredProcedureQuery query = this.entityManager.createStoredProcedureQuery("usp_ListarAlumnosDetallexSession");
+        query.registerStoredProcedureParameter("p_idAperturaTaller", Integer.class, ParameterMode.IN);
+        query.registerStoredProcedureParameter("p_idAperturaTallerSession", Integer.class, ParameterMode.IN);
+        query.setParameter("p_idAperturaTaller", idAperturaTallerDet);
+        query.setParameter("p_idAperturaTallerSession", idSesion);
+        try {
+            List<Object[]> results = query.getResultList();
+            List<SeguimientoSesionDto> listaSeguimientoTaller = (List<SeguimientoSesionDto>)results.stream().map(obj -> {
+                SeguimientoSesionDto lista = new SeguimientoSesionDto();
+                lista.setIdSeguimientoSesion(((obj[0] != null) ? Integer.valueOf(((Number)obj[0]).intValue()) : null).intValue());
+                lista.setAsistencia((obj[1] != null) ? (String)obj[1] : null);
+                lista.setObservacion((obj[2] != null) ? (String)obj[2] : null);
+                lista.setFechaRegistro((obj[3] != null) ? (Date)obj[3] : null);
+                lista.setIdAperturaTallerDet(((obj[4] != null) ? Integer.valueOf(((Number)obj[4]).intValue()) : null).intValue());
+                lista.setDescripcionSesion((obj[5] != null) ? (String)obj[5] : null);
+                lista.setFechaInicio((obj[6] != null) ? (Date)obj[6] : null);
+                lista.setFechaFin((obj[7] != null) ? (Date)obj[7] : null);
+                lista.setTaller((obj[8] != null) ? (String)obj[8] : null);
+                lista.setDescripcionGrupo((obj[9] != null) ? (String)obj[9] : null);
+                lista.setDescripcionEtapa((obj[10] != null) ? (String)obj[10] : null);
+                lista.setIdAlumno(((obj[11] != null) ? Integer.valueOf(((Number)obj[11]).intValue()) : null).intValue());
+                lista.setNombres((obj[12] != null) ? (String)obj[12] : null);
+                lista.setApellidos((obj[13] != null) ? (String)obj[13] : null);
+                lista.setSeguimiento1(((obj[14] != null) ? Integer.valueOf(((Number)obj[14]).intValue()) : null).intValue());
+                lista.setSeguimiento2(((obj[15] != null) ? Integer.valueOf(((Number)obj[15]).intValue()) : null).intValue());
+                lista.setSeguimiento3(((obj[16] != null) ? Integer.valueOf(((Number)obj[16]).intValue()) : null).intValue());
+                lista.setSeguimiento4(((obj[17] != null) ? Integer.valueOf(((Number)obj[17]).intValue()) : null).intValue());
+                lista.setSeguimiento5(((obj[18] != null) ? Integer.valueOf(((Number)obj[18]).intValue()) : null).intValue());
+                lista.setSeguimiento6(((obj[19] != null) ? Integer.valueOf(((Number)obj[19]).intValue()) : null).intValue());
+                lista.setSeguimiento7(((obj[20] != null) ? Integer.valueOf(((Number)obj[20]).intValue()) : null).intValue());
+                lista.setSeguimiento8(((obj[21] != null) ? Integer.valueOf(((Number)obj[21]).intValue()) : null).intValue());
+                lista.setSeguimiento9(((obj[22] != null) ? Integer.valueOf(((Number)obj[22]).intValue()) : null).intValue());
+                lista.setSeguimiento10(((obj[23] != null) ? Integer.valueOf(((Number)obj[23]).intValue()) : null).intValue());
+                lista.setIdMatricula(((obj[24] != null) ? Integer.valueOf(((Number)obj[24]).intValue()) : null).intValue());
+                return lista;
+            }).collect(Collectors.toList());
+            return listaSeguimientoTaller;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al ejecutar usp_ListarAlumnosDetallexSession", e);
+        }
+    }
+
 }

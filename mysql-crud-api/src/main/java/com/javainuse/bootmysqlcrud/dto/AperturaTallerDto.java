@@ -51,6 +51,7 @@ public class AperturaTallerDto {
     private Integer apertura;
 
     private Integer estado;
+    private Integer idDocente;
 
     private List<AperturaTallerDetDto> fechas;
 }

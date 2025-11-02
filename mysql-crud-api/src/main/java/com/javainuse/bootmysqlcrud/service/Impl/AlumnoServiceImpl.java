@@ -59,5 +59,9 @@ public class AlumnoServiceImpl implements AlumnoService {
     public Integer registrarCuotaDetMatricula(CuotaMatriculaDto param, String user) {
         return this.alumnoRepository.registrarCuotaDetMatricula(param, user);
     }
+
+    public List<SeguimientoSesionDto> ListarAlumnosDetallexSession(Integer idAperturaTallerDet, Integer idSesion) {
+        return this.alumnoRepository.ListarAlumnosDetallexSession(idAperturaTallerDet, idSesion);
+    }
 }
 

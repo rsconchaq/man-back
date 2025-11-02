@@ -1,6 +1,7 @@
 package com.javainuse.bootmysqlcrud.controller;
 
 import com.javainuse.bootmysqlcrud.dto.ExternalReniecDto;
+import com.javainuse.bootmysqlcrud.dto.ExternalSunatDto;
 import com.javainuse.bootmysqlcrud.service.ExternalApiService;
 import com.javainuse.bootmysqlcrud.wrapper.ResponseWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,5 +25,11 @@ public class ExternalApiController {
     public ResponseEntity<ResponseWrapper> lista(@PathVariable Integer numeroDocumento) {
         ExternalReniecDto informacion = this.externalApiService.consultarReniec(numeroDocumento.toString());
         return ResponseEntity.status((HttpStatusCode)HttpStatus.OK).body(new ResponseWrapper(informacion, "Informacion del RENIEC obtenida"));
+    }
+
+    @GetMapping({"/obteneRuc/{numeroDocumento}"})
+    public ResponseEntity<ResponseWrapper> obteneRuc(@PathVariable Integer numeroDocumento) {
+        ExternalSunatDto informacion = this.externalApiService.consultarSunat(numeroDocumento.toString());
+        return ResponseEntity.status((HttpStatusCode)HttpStatus.OK).body(new ResponseWrapper(informacion, "Informacion del SUNAT obtenida"));
     }
 }

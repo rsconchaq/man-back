@@ -124,12 +124,15 @@ public class AlumnoController {
     }
 
     @PostMapping({"/actualizarSegimientoAlumno"})
-    public ResponseEntity<ResponseWrapper> actualizarSegimientoAlumno(@RequestBody SeguimientoSesionDto param) {
+    public ResponseEntity<ResponseWrapper> actualizarSegimientoAlumno(@RequestBody List<SeguimientoSesionDto> param) {
         String user = SecurityContextHolder.getContext().getAuthentication().getName();
-        Integer result = this.alumnoService.actualizarSegimientoAlumno(param, user);
-        if (result == null)
-            return ResponseEntity.status((HttpStatusCode) HttpStatus.BAD_REQUEST).body(new ResponseWrapper(null, "Error al actualizar el seguimiento del alumno"));
-        return ResponseEntity.status((HttpStatusCode) HttpStatus.CREATED).body(new ResponseWrapper(result, "Seguimiento del alumno actualizado con éxito"));
+        Integer result =0;
+        for (SeguimientoSesionDto seguimiento : param) {
+              result = this.alumnoService.actualizarSegimientoAlumno(seguimiento, user);
+            if (result == null)
+                return ResponseEntity.status((HttpStatusCode) HttpStatus.BAD_REQUEST).body(new ResponseWrapper(null, "Error al actualizar el seguimiento del alumno"));
+        }
+          return ResponseEntity.status((HttpStatusCode) HttpStatus.CREATED).body(new ResponseWrapper(result, "Seguimiento del alumno actualizado con éxito"));
     }
 
     @GetMapping({"/cuotasMatricula/{idMatricula}"})
@@ -168,5 +171,11 @@ public class AlumnoController {
         }
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(new ResponseWrapper(true, "Pagos de cuotas registrados con éxito"));
+    }
+
+    @GetMapping({"/listarAlumnosDetallexSession/{idAperturaTaller}/{idSesion}"})
+    public ResponseEntity<ResponseWrapper> seguimientoTaller(@PathVariable Integer idAperturaTaller, @PathVariable Integer idSesion) {
+        List<SeguimientoSesionDto> listaAlumno = this.alumnoService.ListarAlumnosDetallexSession(idAperturaTaller, idSesion);
+        return ResponseEntity.status((HttpStatusCode) HttpStatus.OK).body(new ResponseWrapper(listaAlumno, "Lista seguimiento Taller x Session"));
     }
 }
